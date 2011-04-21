@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{5679FC9E-DA3F-4CB5-9DDD-27B5775A5204}</ProjectGuid>
+    <RootNamespace>WwiseUnity</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(WWISESDK)/include;$(WWISESDK)/samples/SoundEngine/Win32;$(WWISESDK)/samples/SoundEngine/Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WWISEUNITY_VORBIS;WWISEUNITY_PLUGIN_FLANGER;WWISEUNITY_PLUGIN_PARAMETRICEQ;WWISEUNITY_PLUGIN_DISTORTION;WWISEUNITY_PLUGIN_MATRIXREVERB;WWISEUNITY_PLUGIN_PEAKLIMITER;WWISEUNITY_PLUGIN_ROOMVERB;WWISEUNITY_PLUGIN_DELAY;WWISEUNITY_PLUGIN_SILENCE;DEBUG;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(WWISESDK)\Win32_vc90\Debug(StaticCRT)\lib;$(DXSDK_DIR)\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>AkSoundEngine.lib;AkMusicEngine.lib;AkStreamMgr.lib;AkMemoryMgr.lib;AkVorbisDecoder.lib;AkFlangerFX.lib;AkParametricEQFX.lib;AkGuitarDistortionFX.lib;AkMatrixReverbFX.lib;AkPeakLimiterFX.lib;AkRoomVerbFX.lib;AkDelayFX.lib;AkSilenceSource.lib;dxguid.lib;CommunicationCentral.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;WWISEUNITY_VORBIS;WWISEUNITY_PLUGIN_FLANGER;WWISEUNITY_PLUGIN_PARAMETRICEQ;WWISEUNITY_PLUGIN_DISTORTION;WWISEUNITY_PLUGIN_MATRIXREVERB;WWISEUNITY_PLUGIN_PEAKLIMITER;WWISEUNITY_PLUGIN_ROOMVERB;WWISEUNITY_PLUGIN_DELAY;WWISEUNITY_PLUGIN_SILENCE;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(WWISESDK)/include;$(WWISESDK)/samples/SoundEngine/Win32;$(WWISESDK)/samples/SoundEngine/Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(WWISESDK)\Win32_vc90\Release(StaticCRT)\lib;$(DXSDK_DIR)\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>AkSoundEngine.lib;AkMusicEngine.lib;AkStreamMgr.lib;AkMemoryMgr.lib;AkVorbisDecoder.lib;AkFlangerFX.lib;AkParametricEQFX.lib;AkGuitarDistortionFX.lib;AkMatrixReverbFX.lib;AkPeakLimiterFX.lib;AkRoomVerbFX.lib;AkDelayFX.lib;AkSilenceSource.lib;dxguid.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="AKAdditions\SampleLowLevelIO\Common\AkFileLocationBase.cpp" />
+    <ClCompile Include="AKAdditions\SampleLowLevelIO\Common\AkFilePackage.cpp" />
+    <ClCompile Include="AKAdditions\SampleLowLevelIO\Common\AkFilePackageLUT.cpp" />
+    <ClCompile Include="AKAdditions\SampleLowLevelIO\Windows\AkDefaultIOHookBlocking.cpp" />
+    <ClCompile Include="WwiseEngine.cpp" />
+    <ClCompile Include="WwiseUnity_DllExport.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AKAdditions\SampleLowLevelIO\Windows\AkDefaultIOHookBlocking.h" />
+    <ClInclude Include="WwiseEngine.hpp" />
+    <ClInclude Include="WwiseUnityTypes.hpp" />
+    <ClInclude Include="WwiseUnity_DllExport.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

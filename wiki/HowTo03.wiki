@@ -1,5 +1,0 @@
-#summary HowTo[03]: Build a release with WwiseUnity.
-
-= Introduction =
-
-TODO.

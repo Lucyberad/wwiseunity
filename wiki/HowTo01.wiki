@@ -1,5 +1,0 @@
-#summary HowTo[01]: Setup WwiseUnity inside Unity.
-
-= Introduction =
-
-TODO.

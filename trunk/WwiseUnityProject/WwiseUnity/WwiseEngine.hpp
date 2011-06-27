@@ -13,13 +13,17 @@
 
 #include "WwiseUnityTypes.hpp"
 
-#include <AK/SoundEngine/Common/AkMemoryMgr.h>                  // Memory Manager
-#include <AK/SoundEngine/Common/AkModule.h>                     // Default memory and stream managers
-#include <AK/Tools/Common/AkPlatformFuncs.h>                    // Thread defines
-#include <AK/SoundEngine/Common/IAkStreamMgr.h>                 // Streaming Manager
+#include <AK/SoundEngine/Common/AkMemoryMgr.h>					// Memory Manager
+#include <AK/SoundEngine/Common/AkModule.h>						// Default memory and stream managers
+#include <AK/Tools/Common/AkPlatformFuncs.h>					// Thread defines
+#include <AK/SoundEngine/Common/IAkStreamMgr.h>					// Streaming Manager
 #include "AkFilePackageLowLevelIOBlocking.h"					// Sample low-level I/O implementation (in $(WWISESDK)/samples/SoundEngine/Win32).
-#include <AK/SoundEngine/Common/AkSoundEngine.h>                // Sound engine
-#include <AK/MusicEngine/Common/AkMusicEngine.h>                // Music Engine
+#include <AK/SoundEngine/Common/AkSoundEngine.h>				// Sound engine
+#include <AK/MusicEngine/Common/AkMusicEngine.h>				// Music Engine
+#include <AK/SoundEngine/Common/AkTypes.h>
+#include <AK/SoundEngine/Common/AkSpeakerConfig.h>
+
+
 #ifdef DEBUG
     #include <AK/Comm/AkCommunication.h>
 #endif
@@ -110,7 +114,17 @@ namespace WwiseUnity
 		int SetPosition(AkGameObjectID gameObjectId, AkSoundPosition& position, int listenerIndex);
 
 		int SetGameObjectActiveListeners(AkGameObjectID gameObjectId, AkUInt32 listenerMask);
-	};	
+
+		int PostTrigger( AkTriggerID in_triggerID, AkGameObjectID in_gameObjectID );
+		int PostTrigger( WU_STRING in_pszTrigger, AkGameObjectID in_gameObjectID );
+
+		int SetListenerSpatialization( AkUInt32 in_uIndex, bool in_bSpatialized );
+
+		AkChannelMask	MyChannelMaskFromNumChannels( unsigned int in_uNumChannels );
+		unsigned int	MyChannelMaskToNumChannels( AkChannelMask in_uChannelMask );
+		AkChannelMask	GetSpeakerConfiguration();
+
+	};
 }
 
 #endif

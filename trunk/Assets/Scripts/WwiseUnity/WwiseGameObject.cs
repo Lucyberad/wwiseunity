@@ -5,30 +5,35 @@ using System.Collections;
 public class WwiseGameObject : MonoBehaviour
 {
 
-    #region Public Members
+	#region Public Members
 
-    /// <summary>
-    /// Define the sound game object name.
-    /// There is no need to choose a unique name
-    /// </summary>
-    public string SoundGameObjectName = "None";
+	/// <summary>
+	/// Define the sound game object name.
+	/// There is no need to choose a unique name
+	/// </summary>
+	public string SoundGameObjectName = "None";
 
-    /// <summary>
-    /// Define the SoundListener to link with.
-    /// Default Listener index is 0.
-    /// Max Listener index is 7.
-    /// </summary>
-    public int ListenerIndex = 0;
+	/// <summary>
+	/// Define the SoundListener to link with.
+	/// Default Listener index is 0.
+	/// Max Listener index is 7.
+	/// </summary>
+	public int ListenerIndex = 0;
 
-    #endregion
+	#endregion
 
-    #region Private Members
- 
+	#region Private Members
+
 	private uint m_soundGameObjectId;
 
-    #endregion
+	public uint GetGameObjectId()
+	{
+		return m_soundGameObjectId;
+	}
 
-    #region Monobehavior Override
+	#endregion
+
+	#region Monobehavior Override
 
 	void Start() 
     {
@@ -48,27 +53,27 @@ public class WwiseGameObject : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () 
-    {
-    	updatePosition();
+	{
+		updatePosition();
 	}
 
-    void OnDispose()
-    {
-    	WwiseEngine.RemoveSoundGameObject(m_soundGameObjectId);
-    }
-    #endregion
+	void OnDispose()
+	{
+		WwiseEngine.RemoveSoundGameObject(m_soundGameObjectId);
+	}
+	#endregion
 
-    #region Protected Methods
+	#region Protected Methods
 
-    // the purpose of this method is to be overrided for any other use of SoundGameObject
-    protected void updatePosition()
-    {
+	// the purpose of this method is to be overrided for any other use of SoundGameObject
+	protected void updatePosition()
+	{
 		WwiseEngine.SetSoundGameObjectPosition(m_soundGameObjectId, transform.position, transform.forward);
-    }
+	}
 
-    #endregion
+	#endregion
 
-    #region Public Methods
+	#region Public Methods
 
     public void PostEvent(string eventName)
     {
@@ -98,7 +103,17 @@ public class WwiseGameObject : MonoBehaviour
     public void SetSwitch(ulong switchGroupId, ulong switchId)
     {
         WwiseEngine.SetSoundSwitch(switchGroupId, switchId, m_soundGameObjectId);
-    }
-	
-    #endregion
+	}
+
+	public void PostTrigger( uint triggerID, uint gameObjectID )
+	{
+		WwiseEngine.PostSoundTrigger( triggerID, gameObjectID );
+	}
+
+	public void PostTrigger( string triggerName, uint gameObjectID )
+	{
+		WwiseEngine.PostSoundTrigger( triggerName, gameObjectID );
+	}
+
+	#endregion
 }

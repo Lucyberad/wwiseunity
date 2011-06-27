@@ -16,16 +16,16 @@ public class WwiseListener: MonoBehaviour
 
     #region MonoBehaviour Override
 
-	void Start () 
-    {
-        if (ListenerIndex > 7 || ListenerIndex < 0)
-        {
-            Debug.LogError("WwiseListener : the listener index is out of range [0..7] : " + ListenerIndex);
-            Debug.Break();
-        }
+	void Start ()
+	{
+		if (ListenerIndex > 7 || ListenerIndex < 0)
+		{
+			Debug.LogError("WwiseListener : the listener index is out of range [0..7] : " + ListenerIndex);
+			Debug.Break();
+		}
 
-        // init the listener based on the sound Engine
-	    // nothing to do... just update its position.
+		// init the listener based on the sound Engine
+		// nothing to do... just update its position.
 	}
 	
 	// Update is called once per frame

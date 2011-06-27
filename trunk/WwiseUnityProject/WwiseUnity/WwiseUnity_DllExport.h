@@ -34,6 +34,7 @@ extern "C"
 	{
 		return WwiseUnity::WwiseEngine::getInstance()->SetBasePath(basePath);
 	}
+
 	EXPORT_DLL int SetLangSpecificDirName(WU_STRING specificDirName)
 	{
 		return WwiseUnity::WwiseEngine::getInstance()->SetLangSpecificDirName(specificDirName);
@@ -53,6 +54,7 @@ extern "C"
 	{
 		WwiseUnity::WwiseEngine::getInstance()->SetState(stateGroup, state);
 	}
+
 	EXPORT_DLL void SetStateById(unsigned long stateGroupId, unsigned long stateId)
 	{
 		WwiseUnity::WwiseEngine::getInstance()->SetState(stateGroupId, stateId);
@@ -68,6 +70,7 @@ extern "C"
 	{
 		return WwiseUnity::WwiseEngine::getInstance()->UnregisterGameObject(akId);
 	}
+
 	EXPORT_DLL int UnregisterAllGameObject()
 	{
 		return WwiseUnity::WwiseEngine::getInstance()->UnregisterAllGameObject();
@@ -86,6 +89,7 @@ extern "C"
 
 		return WwiseUnity::WwiseEngine::getInstance()->SetPosition(gameObjectId, soundPosition);
 	}
+
 	EXPORT_DLL int SetPositionByListener(unsigned int gameObjectId, float posX, float posY, float posZ, float orientationX, float orientationY, float orientationZ, int listenerIndex)
 	{
 		AkSoundPosition soundPosition;
@@ -104,6 +108,7 @@ extern "C"
 	{
 		WwiseUnity::WwiseEngine::getInstance()->PostEvent(eventName, gameObject);
 	}
+
 	EXPORT_DLL void PostEventById(unsigned long eventId, unsigned int gameObject)
 	{
 		WwiseUnity::WwiseEngine::getInstance()->PostEvent(eventId, gameObject);
@@ -113,10 +118,12 @@ extern "C"
 	{
 		WwiseUnity::WwiseEngine::getInstance()->SetRTPCValue(rtpcName, value);
 	}
+
 	EXPORT_DLL void SetRTPCValue(WU_STRING rtpcName, float value, unsigned int  gameObjectId)
 	{
 		WwiseUnity::WwiseEngine::getInstance()->SetRTPCValue(rtpcName, value, gameObjectId);
 	}
+
 	EXPORT_DLL void SetRTPCValueById(unsigned long rtpcId, float value, unsigned int  gameObjectId)
 	{
 		WwiseUnity::WwiseEngine::getInstance()->SetRTPCValue(rtpcId, value, gameObjectId);
@@ -126,6 +133,7 @@ extern "C"
 	{
 		WwiseUnity::WwiseEngine::getInstance()->SetSwitch(switchGroupName, switchName, gameObjectId);
 	}
+
 	EXPORT_DLL void SetSwitchById(unsigned long switchGroupId, unsigned long switchId, unsigned int gameObjectId)
 	{
 		WwiseUnity::WwiseEngine::getInstance()->SetSwitch(switchGroupId, switchId, gameObjectId);
@@ -149,6 +157,7 @@ extern "C"
 
 		return WwiseUnity::WwiseEngine::getInstance()->SetListenerPosition(akPosition);
 	}
+
 	EXPORT_DLL int SetListenerPositionById(int listenerIndex, float posX, float posY, float posZ, float orientationFrontX, float orientationFrontY, float orientationFrontZ, float orientationTopX, float orientationTopY, float orientationTopZ)
 	{
 		AkListenerPosition akPosition;
@@ -170,6 +179,36 @@ extern "C"
 	EXPORT_DLL int SetGameObjectActiveListeners(unsigned int gameObjectId, unsigned int listenerMask)
 	{
 		return WwiseUnity::WwiseEngine::getInstance()->SetGameObjectActiveListeners(gameObjectId, listenerMask);
+	}
+
+	EXPORT_DLL int PostTriggerById( unsigned long triggerID, unsigned long gameObjectID )
+	{
+		return WwiseUnity::WwiseEngine::getInstance()->PostTrigger( triggerID, gameObjectID );
+	}
+
+	EXPORT_DLL int PostTrigger( WU_STRING triggerName, unsigned long gameObjectID )
+	{
+		return WwiseUnity::WwiseEngine::getInstance()->PostTrigger( triggerName, gameObjectID );
+	}
+
+	EXPORT_DLL int SetListenerSpatialization( unsigned int in_uIndex, bool in_bSpatialized )
+	{
+		return WwiseUnity::WwiseEngine::getInstance()->SetListenerSpatialization( in_uIndex, in_bSpatialized );
+	}
+
+	EXPORT_DLL unsigned int MyChannelMaskFromNumChannels( unsigned int in_uNumChannels )
+	{
+		return WwiseUnity::WwiseEngine::getInstance()->MyChannelMaskFromNumChannels( in_uNumChannels );
+	}
+
+	EXPORT_DLL unsigned int MyChannelMaskToNumChannels( unsigned int in_uChannelMask )
+	{
+		return WwiseUnity::WwiseEngine::getInstance()->MyChannelMaskToNumChannels( in_uChannelMask );
+	}
+
+	EXPORT_DLL unsigned int MyGetSpeakerConfiguration()
+	{
+		return WwiseUnity::WwiseEngine::getInstance()->GetSpeakerConfiguration();
 	}
 }
 

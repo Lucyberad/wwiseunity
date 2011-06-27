@@ -7,89 +7,130 @@ using System.Runtime.InteropServices;
 
 public static class WwiseEngine
 {
-#if !WWISE_DISABLE
+	public const uint GAME_OBJECT_GLOBAL		= 4294967295U;
 	
-    #region DllImport WwiseUnity
+	public const uint AK_SPEAKER_FRONT_LEFT		= 0x1;       ///< Front left speaker bit mask
+	public const uint AK_SPEAKER_FRONT_RIGHT	= 0x2;       ///< Front right speaker bit mask
+	public const uint AK_SPEAKER_FRONT_CENTER	= 0x4;       ///< Front center speaker bit mask
+	public const uint AK_SPEAKER_LOW_FREQUENCY	= 0x8;       ///< Low-frequency speaker bit mask
+	public const uint AK_SPEAKER_BACK_LEFT		= 0x10;      ///< Rear left speaker bit mask
+	public const uint AK_SPEAKER_BACK_RIGHT		= 0x20;      ///< Rear right speaker bit mask
+	public const uint AK_SPEAKER_BACK_CENTER	= 0x100;     ///< Rear center speaker ("surround speaker") bit mask
+	public const uint AK_SPEAKER_SIDE_LEFT		= 0x200;     ///< Side left speaker bit mask
+	public const uint AK_SPEAKER_SIDE_RIGHT		= 0x400;     ///< Side right speaker bit mask
 
-    //import Wwise Wrapper 
-    [DllImport("WwiseUnity")]
-    private static extern void DestroyEngine();
-    [DllImport("WwiseUnity")]
-    private static extern bool Init();
-    [DllImport("WwiseUnity")]
-    private static extern void ProcessAudio();
-    [DllImport("WwiseUnity")]
-    private static extern void Term();
-    [DllImport("WwiseUnity")]
-    private static extern int SetBasePath(string basePath);
-    [DllImport("WwiseUnity")]
-    private static extern int SetLangSpecificDirName(string specificDirName);
-    
-    [DllImport("WwiseUnity")]
-    private static extern int LoadBank(string bankName);
-    [DllImport("WwiseUnity")]
-    private static extern int UnloadBank(string bankName);
+	public const uint AK_SPEAKER_SETUP_MONO		= AK_SPEAKER_FRONT_CENTER;     ///< 1.0 setup channel mask
+	public const uint AK_SPEAKER_SETUP_0POINT1	= AK_SPEAKER_LOW_FREQUENCY;    ///< 0.1 setup channel mask
+	public const uint AK_SPEAKER_SETUP_1POINT1	= ( AK_SPEAKER_FRONT_CENTER		| AK_SPEAKER_LOW_FREQUENCY ); ///< 1.1 setup channel mask
+	public const uint AK_SPEAKER_SETUP_STEREO	= ( AK_SPEAKER_FRONT_LEFT		| AK_SPEAKER_FRONT_RIGHT );   ///< 2.0 setup channel mask
+	public const uint AK_SPEAKER_SETUP_2POINT1	= ( AK_SPEAKER_SETUP_STEREO		| AK_SPEAKER_LOW_FREQUENCY ); ///< 2.1 setup channel mask
+	public const uint AK_SPEAKER_SETUP_3STEREO	= ( AK_SPEAKER_SETUP_STEREO		| AK_SPEAKER_FRONT_CENTER );  ///< 3.0 setup channel mask
+	public const uint AK_SPEAKER_SETUP_3POINT1	= ( AK_SPEAKER_SETUP_3STEREO	| AK_SPEAKER_LOW_FREQUENCY ); ///< 3.1 setup channel mask
+	public const uint AK_SPEAKER_SETUP_4		= ( AK_SPEAKER_SETUP_STEREO		| AK_SPEAKER_BACK_LEFT | AK_SPEAKER_BACK_RIGHT ); ///< 4.0 setup channel mask
+	public const uint AK_SPEAKER_SETUP_4POINT1	= ( AK_SPEAKER_SETUP_4			| AK_SPEAKER_LOW_FREQUENCY ); ///< 4.1 setup channel mask
+	public const uint AK_SPEAKER_SETUP_5		= ( AK_SPEAKER_SETUP_4			| AK_SPEAKER_FRONT_CENTER );  ///< 5.0 setup channel mask
+	public const uint AK_SPEAKER_SETUP_5POINT1	= ( AK_SPEAKER_SETUP_5			| AK_SPEAKER_LOW_FREQUENCY ); ///< 5.1 setup channel mask
+	public const uint AK_SPEAKER_SETUP_7POINT1	= ( AK_SPEAKER_SETUP_5POINT1	| AK_SPEAKER_SIDE_LEFT | AK_SPEAKER_SIDE_RIGHT ); ///< 7.1 setup channel mask
 
-    [DllImport("WwiseUnity")]
-    private static extern void SetState(string stateGroup, string state);
-    [DllImport("WwiseUnity")]
+#if !WWISE_DISABLE
+
+	#region DllImport WwiseUnity
+
+	//import Wwise Wrapper 
+	[DllImport("WwiseUnity")]
+	private static extern void DestroyEngine();
+	[DllImport("WwiseUnity")]
+	private static extern bool Init();
+	[DllImport("WwiseUnity")]
+	private static extern void ProcessAudio();
+	[DllImport("WwiseUnity")]
+	private static extern void Term();
+	[DllImport("WwiseUnity")]
+	private static extern int SetBasePath(string basePath);
+	[DllImport("WwiseUnity")]
+	private static extern int SetLangSpecificDirName(string specificDirName);
+
+	[DllImport("WwiseUnity")]
+	private static extern int LoadBank(string bankName);
+	[DllImport("WwiseUnity")]
+	private static extern int UnloadBank(string bankName);
+
+	[DllImport("WwiseUnity")]
+	private static extern void SetState(string stateGroup, string state);
+	[DllImport("WwiseUnity")]
 	private static extern void SetStateById(ulong stateGroupId, ulong stateId);
-    // Game Object management
-    [DllImport("WwiseUnity")]
-    private static extern int RegisterGameObject(uint akId, string gameObjectLabel);
-    [DllImport("WwiseUnity")]
-    private static extern int UnregisterGameObject(uint akId);
-    [DllImport("WwiseUnity")]
-    private static extern int UnregisterAllGameObject();
-    [DllImport("WwiseUnity")]
-    private static extern int SetPosition(uint gameObjectId, float posX, float posY, float posZ, float orientationX, float orientationY, float orientationZ);
-    [DllImport("WwiseUnity")] 
-    private static extern int SetPositionByListener(uint gameObjectId, float posX, float posY, float posZ, float orientationX, float orientationY, float orientationZ, int listenerIndex);
+	// Game Object management
+	[DllImport("WwiseUnity")]
+	private static extern int RegisterGameObject(uint akId, string gameObjectLabel);
+	[DllImport("WwiseUnity")]
+	private static extern int UnregisterGameObject(uint akId);
+	[DllImport("WwiseUnity")]
+	private static extern int UnregisterAllGameObject();
+	[DllImport("WwiseUnity")]
+	private static extern int SetPosition(uint gameObjectId, float posX, float posY, float posZ, float orientationX, float orientationY, float orientationZ);
+	[DllImport("WwiseUnity")] 
+	private static extern int SetPositionByListener(uint gameObjectId, float posX, float posY, float posZ, float orientationX, float orientationY, float orientationZ, int listenerIndex);
 
-    [DllImport("WwiseUnity")]
-    private static extern void PostEvent(string eventName, uint gameObject);
-    [DllImport("WwiseUnity")]
+	[DllImport("WwiseUnity")]
+	private static extern void PostEvent(string eventName, uint gameObject);
+	[DllImport("WwiseUnity")]
 	private static extern void PostEventById(ulong eventId, uint gameObject);
 
-    [DllImport("WwiseUnity")]
-    private static extern void SetRTPCValueGlobal(string rtpcName, float value);
-    [DllImport("WwiseUnity")]
-    private static extern void SetRTPCValue(string rtpcName, float value, uint gameObjectId);
-    [DllImport("WwiseUnity")]
+	[DllImport("WwiseUnity")]
+	private static extern void SetRTPCValueGlobal(string rtpcName, float value);
+	[DllImport("WwiseUnity")]
+	private static extern void SetRTPCValue(string rtpcName, float value, uint gameObjectId);
+	[DllImport("WwiseUnity")]
 	private static extern void SetRTPCValueById(ulong rtpcId, float value, uint  gameObjectId);
 
-    [DllImport("WwiseUnity")]
-    private static extern void SetSwitch(string switchGroupName, string switchName, uint gameObjectId);
-    [DllImport("WwiseUnity")]
+	[DllImport("WwiseUnity")]
+	private static extern void SetSwitch(string switchGroupName, string switchName, uint gameObjectId);
+	[DllImport("WwiseUnity")]
 	private static extern void SetSwitchById(ulong switchGroupId, ulong switchId, uint gameObjectId);
-    // Listener Management
-    [DllImport("WwiseUnity")]
-    private static extern int SetListenerPosition(float posX, float posY, float posZ, float orientationFrontX, float orientationFrontY, float orientationFrontZ, float orientationTopX, float orientationTopY, float orientationTopZ);
-    [DllImport("WwiseUnity")]
-    private static extern int SetListenerPositionById(int listenerIndex, float posX, float posY, float posZ, float orientationFrontX, float orientationFrontY, float orientationFrontZ, float orientationTopX, float orientationTopY, float orientationTopZ);
-    [DllImport("WwiseUnity")]
-    private static extern int SetGameObjectActiveListeners(uint gameObjectId, uint listenerMask);
-    
-    #endregion
+	// Listener Management
+	[DllImport("WwiseUnity")]
+	private static extern int SetListenerPosition(float posX, float posY, float posZ, float orientationFrontX, float orientationFrontY, float orientationFrontZ, float orientationTopX, float orientationTopY, float orientationTopZ);
+	[DllImport("WwiseUnity")]
+	private static extern int SetListenerPositionById(int listenerIndex, float posX, float posY, float posZ, float orientationFrontX, float orientationFrontY, float orientationFrontZ, float orientationTopX, float orientationTopY, float orientationTopZ);
+	[DllImport("WwiseUnity")]
+	private static extern int SetGameObjectActiveListeners(uint gameObjectId, uint listenerMask);
 
-    #region Private Members
+	// Trigger
+	[DllImport("WwiseUnity")]
+	private static extern int PostTriggerById( uint triggerID, uint gameObjectID );
+	[DllImport( "WwiseUnity" )]
+	private static extern int PostTrigger( string triggerName, uint gameObjectID );
+
+	// L'espace...
+	[DllImport( "WwiseUnity" )]
+	private static extern int SetListenerSpatialization( uint uIndex, bool bSpatialized );
+	[DllImport( "WwiseUnity" )]
+	private static extern uint MyChannelMaskFromNumChannels( uint in_uNumChannels );
+	[DllImport( "WwiseUnity" )]
+	private static extern uint MyChannelMaskToNumChannels( uint in_uChannelMask );
+	[DllImport( "WwiseUnity" )]
+	private static extern uint MyGetSpeakerConfiguration();
+
+	#endregion
+
+	#region Private Members
 
     private static uint m_nextSoundGameObjectId = 10;
     private static bool m_hasBeenInitialize = false;
 
-    #endregion
+	#endregion
 
-    #region Private Working Members
+	#region Private Working Members
 
     static int m_tempResult = 0;
 
-    #endregion 
+	#endregion 
 
 #endif
-	
-    #region Public Methods
 
-    // this method is call before any Start method
+	#region Public Methods
+
+	// this method is call before any Start method
     public static void Initialize(string BasePath, string LangSpecificDirName)
     {
 #if !WWISE_DISABLE
@@ -121,7 +162,7 @@ public static class WwiseEngine
 	public static void Update()
     {
 #if !WWISE_DISABLE
-        if (m_hasBeenInitialize)
+        if (true)
             ProcessAudio();
 #endif
 	}
@@ -242,18 +283,18 @@ public static class WwiseEngine
     }
     #endregion
 
-    #region GameObject/Listeners
+	#region GameObject/Listeners
 
-    public static void SetSoundGameObjectActiveListeners(uint gameObjectId, uint listenerMask)
-    {
+	public static void SetSoundGameObjectActiveListeners( uint gameObjectId, uint listenerMask )
+	{
 #if !WWISE_DISABLE
-        m_tempResult = SetGameObjectActiveListeners(gameObjectId, listenerMask);
-        if (m_tempResult != 1)
-            HandleError("SetGameObjectActiveListeners failed \nerror : " + m_tempResult);
+		m_tempResult = SetGameObjectActiveListeners( gameObjectId, listenerMask );
+		if ( m_tempResult != 1 )
+			HandleError( "SetGameObjectActiveListeners failed \nerror : " + m_tempResult );
 #endif
-    }
+	}
 
-    #endregion
+	#endregion
 
     #region Post Sound
     public static void PostSoundEvent(string eventName, uint gameObjectId)
@@ -309,8 +350,8 @@ public static class WwiseEngine
     }
     #endregion
 
-    #region Listener Position
-    public static void SetSoundListenerPosition(Vector3 position, Vector3 orientationFront, Vector3 orientationTop)
+	#region Listener Position
+	public static void SetSoundListenerPosition(Vector3 position, Vector3 orientationFront, Vector3 orientationTop)
     {
 #if !WWISE_DISABLE
         m_tempResult = SetListenerPosition(position.x, position.y, position.z,
@@ -351,11 +392,56 @@ public static class WwiseEngine
 
     #endregion
 
+	#region Trigger
+	public static int PostSoundTrigger( uint triggerID, uint gameObjectID )
+	{
+#if !WWISE_DISABLE
+		return PostTriggerById( triggerID, gameObjectID );
+#endif
+	}
 
-    #endregion
-	
+	public static int PostSoundTrigger( string triggerName, uint gameObjectID )
+	{
+#if !WWISE_DISABLE
+		return PostTrigger( triggerName, gameObjectID );
+#endif
+	}
+	#endregion
+
+	#region Spatiale
+
+	public static int SetSoundListenerSpatialization( uint uIndex, bool bSpatialized )
+	{
+#if !WWISE_DISABLE
+		return SetSoundListenerSpatialization( uIndex, bSpatialized );
+#endif
+	}
+
+	public static uint ChannelMaskFromNumChannels( uint in_uNumChannels )
+	{
+#if !WWISE_DISABLE
+		return MyChannelMaskFromNumChannels( in_uNumChannels );
+#endif
+	}
+
+	public static uint ChannelMaskToNumChannels( uint in_uChannelMask )
+	{
+#if !WWISE_DISABLE
+		return MyChannelMaskToNumChannels( in_uChannelMask );
+#endif
+	}
+
+	public static uint GetSpeakerConfiguration()
+	{
+#if !WWISE_DISABLE
+		return MyGetSpeakerConfiguration();
+#endif
+	}
+
+	#endregion
+
 	#region Error Handling
-	
+
 	public static void HandleError(string message)
 	{
 #if !WWISE_DISABLE
@@ -367,4 +453,5 @@ public static class WwiseEngine
 	
 	#endregion
 
+	#endregion
 }

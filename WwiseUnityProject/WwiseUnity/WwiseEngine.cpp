@@ -5,6 +5,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "WwiseEngine.hpp"
+
 using namespace WwiseUnity;
 
 // Custom alloc/free functions. These are declared as "extern" in AkMemoryMgr.h
@@ -344,6 +345,7 @@ void WwiseEngine::PostEvent(WU_STRING eventName, AkGameObjectID gameObject)
 {
 	AK::SoundEngine::PostEvent(eventName, gameObject);
 }
+
 void WwiseEngine::PostEvent(AkUniqueID eventId, AkGameObjectID gameObject)
 {
 	AK::SoundEngine::PostEvent(eventId, gameObject);
@@ -353,10 +355,12 @@ void WwiseEngine::SetRTPCValue(WU_STRING rtpcName, AkRtpcValue value)
 {
 	AK::SoundEngine::SetRTPCValue(rtpcName, value);
 }
+
 void WwiseEngine::SetRTPCValue(WU_STRING rtpcName, AkRtpcValue value, AkGameObjectID gameObjectId)
 {
 	AK::SoundEngine::SetRTPCValue(rtpcName, value, gameObjectId);
 }
+
 void WwiseEngine::SetRTPCValue(AkRtpcID rtpcId, AkRtpcValue value, AkGameObjectID gameObjectId)
 {
 	AK::SoundEngine::SetRTPCValue(rtpcId, value, gameObjectId);
@@ -366,6 +370,7 @@ void WwiseEngine::SetState(WU_STRING stateGroup, WU_STRING state)
 {
 	AK::SoundEngine::SetState(stateGroup, state);
 }
+
 void WwiseEngine::SetState(AkStateGroupID stateGroupId, AkStateID stateId)
 {
 	AK::SoundEngine::SetState(stateGroupId, stateId);
@@ -375,6 +380,7 @@ void WwiseEngine::SetSwitch(WU_STRING switchGroupName, WU_STRING switchName, AkG
 {
 	AK::SoundEngine::SetSwitch(switchGroupName, switchName, gameObjectId);
 }
+
 void WwiseEngine::SetSwitch(AkSwitchGroupID switchGroupId, AkSwitchStateID switchId, AkGameObjectID gameObjectId)
 {
 	AK::SoundEngine::SetSwitch(switchGroupId, switchId, gameObjectId);
@@ -384,6 +390,7 @@ int WwiseEngine::SetListenerPosition(AkListenerPosition& akPosition)
 {
 	return AK::SoundEngine::SetListenerPosition(akPosition);
 }
+
 int WwiseEngine::SetListenerPosition(int listenerIndex, AkListenerPosition& akPosition)
 {
 	return AK::SoundEngine::SetListenerPosition(akPosition, listenerIndex);
@@ -393,6 +400,7 @@ int WwiseEngine::SetPosition(AkGameObjectID gameObjectId, AkSoundPosition& posit
 {
 	return AK::SoundEngine::SetPosition(gameObjectId, position);
 }
+
 int WwiseEngine::SetPosition(AkGameObjectID gameObjectId, AkSoundPosition& position, int listenerIndex)
 {
 	return AK::SoundEngine::SetPosition(gameObjectId, position, listenerIndex);
@@ -401,4 +409,34 @@ int WwiseEngine::SetPosition(AkGameObjectID gameObjectId, AkSoundPosition& posit
 int WwiseEngine::SetGameObjectActiveListeners(AkGameObjectID gameObjectId, AkUInt32 listenerMask)
 {
 	return AK::SoundEngine::SetActiveListeners(gameObjectId, listenerMask);
+}
+
+int WwiseEngine::PostTrigger( AkTriggerID in_triggerID, AkGameObjectID in_gameObjectID )
+{
+	return AK::SoundEngine::PostTrigger( in_triggerID, in_gameObjectID );
+}
+
+int WwiseEngine::PostTrigger( WU_STRING in_pszTrigger, AkGameObjectID in_gameObjectID )
+{
+	return AK::SoundEngine::PostTrigger( in_pszTrigger, in_gameObjectID );
+}
+
+int WwiseEngine::SetListenerSpatialization( AkUInt32 in_uIndex, bool in_bSpatialized )
+{
+	return AK::SoundEngine::SetListenerSpatialization( in_uIndex, in_bSpatialized, NULL );
+}
+
+AkChannelMask WwiseEngine::MyChannelMaskFromNumChannels( unsigned int in_uNumChannels )
+{
+	return ChannelMaskFromNumChannels( in_uNumChannels );
+}
+
+unsigned int WwiseEngine::MyChannelMaskToNumChannels( AkChannelMask in_uChannelMask )
+{
+	return ChannelMaskToNumChannels( in_uChannelMask );
+}
+
+AkChannelMask WwiseUnity::WwiseEngine::GetSpeakerConfiguration()
+{
+	return AK::SoundEngine::GetSpeakerConfiguration();
 }

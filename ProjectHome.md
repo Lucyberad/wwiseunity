@@ -1,0 +1,1 @@
+WwiseUnity is a Wwise DLL for Unity. It comes as a plugin (DLL) and is used inside Unity with Script files (C#).
